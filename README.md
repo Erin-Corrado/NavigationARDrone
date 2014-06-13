@@ -8,7 +8,7 @@
 
 ## Note
 
-In the emotiv.py file change:
+In the emotiv.py file from emokit change:
 
 ```
 self.gyroX = ((ord(data[29]) << 4) | (ord(data[31]) >> 4))
