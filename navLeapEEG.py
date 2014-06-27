@@ -5,7 +5,7 @@ import pygame
 import Leap, sys
 
   
-def main():
+def flightMode(normal):
   drone = libardrone.ARDrone()
   headset = emotiv.Emotiv()
   controller = Leap.Controller()
@@ -142,19 +142,23 @@ def main():
 	print "Hand pitch: %f degrees, roll: %f degrees, yaw: %f degrees" % (
                 handdirection.pitch * Leap.RAD_TO_DEG,
                 normal.roll * Leap.RAD_TO_DEG,
-                handdirection.yaw * Leap.RAD_TO_DEG)
+                handdirection.yaw * Leap.RAD_TO_DEG+normal.yaw)
       
-	if handdirection.yaw * Leap.RAD_TO_DEG > 10:
+	if handdirection.yaw * Leap.RAD_TO_DEG > 10+normal.yaw:
 	  drone.move_left()
 	  print "Move left"
 	
-	elif handdirection.yaw * Leap.RAD_TO_DEG < -10:
+	elif handdirection.yaw * Leap.RAD_TO_DEG < -10+normal.yaw:
 	  drone.move_right()
 	  print "Move right"
 	  
 	else:
 	  drone.hover()
 	  print "Hover"
+	  
+      elif (direction['Yaw'] == 0) and (direction['Pitch'] == 0) and frame.hands.is_empty:
+	drone.hover()
+	print "Hover"
 	  
       for event in pygame.event.get():
 	 if event.type == pygame.KEYDOWN:
@@ -167,6 +171,51 @@ def main():
   print "Shutting down...",
   drone.halt()
   print "Success"
+  
+def trainingMode():
+  print "Training mode. Place hand on leap motion."
+  isTraining = True
+  controller = Leap.Controller()
+  
+  while isTraining == True:
+    frame = controller.frame()
+    
+    while frame.hands.is_empty:
+      print "Hand not detected."
+      frame = controller.frame()
+      
+    if not frame.hands.is_empty:
+      
+      hand = frame.hands[0]
+      handdirection = hand.direction
+      
+      normal = handdirection.yaw * Leap.RAD_TO_DEG
+      isTraining = False
+  
+  print "Normal position is %f" % (normal)
+  return normal
+      
+    
+  
+  
+def main():
+  print "Welcome to Drone Navigation."
+  print "Press t for training mode, or f for flight mode. Hit space to exit."
+  
+  mode = raw_input()
+  normal = Leap.Vector.zero
+  
+  while mode is not ' ':
+    
+    if mode == 't':
+      normal = trainingMode()
+    
+    elif mode == 'f':
+      flightMode(normal)
+    
+    print "Press t for training, f for flight, or space to exit: "
+    mode = raw_input()
+  
   
 if __name__ == '__main__':
     main()
