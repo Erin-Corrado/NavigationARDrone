@@ -131,11 +131,9 @@ def main():
       print "Yaw: %d Pitch: %d" % (direction['Yaw'], direction['Pitch'])
       
       frame = controller.frame()
-      print "got frame"
       
       if not frame.hands.is_empty:
 	hand = frame.hands[0]
-	print "got this far"
       
 	fingers = hand.fingers
 	normal = hand.palm_normal
@@ -153,6 +151,10 @@ def main():
 	elif handdirection.yaw * Leap.RAD_TO_DEG < -10:
 	  drone.move_right()
 	  print "Move right"
+	  
+	else:
+	  drone.hover()
+	  print "Hover"
 	  
       for event in pygame.event.get():
 	 if event.type == pygame.KEYDOWN:
