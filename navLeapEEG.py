@@ -25,26 +25,28 @@ def flightMode(normal):
   isRunning = True
   
   drone.takeoff()
+  
+  xoffset = -4
     
   while isRunning:
       packet = headset.dequeue()
       
-      if (yawCounter > 0) and (packet.gyroX < -5):
+      if (yawCounter > 0) and (packet.gyroX < -5+xoffset):
 	yawCounter = 0
-      elif(yawCounter < 0) and (packet.gyroX > 5):
+      elif(yawCounter < 0) and (packet.gyroX > 5+xoffset):
 	yawCounter=0
-      elif(packet.gyroX > 5):
+      elif(packet.gyroX > 5+xoffset):
 	yawCounter += 1
-      elif(packet.gyroX < -5):
+      elif(packet.gyroX < -5+xoffset):
 	yawCounter -= 1
-      elif(packet.gyroX==0):
+      elif(packet.gyroX==0+xoffset):
 	yawCounter=0
 
-      if(packet.gyroX > 50):
+      if(packet.gyroX > 50+xoffset):
 	direction['Yaw']=0
 	yawCounter=0
 			
-      elif(packet.gyroX < -50):
+      elif(packet.gyroX < -50+xoffset):
 	direction['Yaw']=0
 	yawCounter=0
 		
@@ -115,7 +117,7 @@ def flightMode(normal):
 	  pitchCounter=0
 	  
       if(direction['Yaw'] == 0) and (direction['Pitch'] == 0):
-	drone.hover()
+	print "here"
 	
       else:
 	if(direction['Pitch'] == 1):
@@ -127,7 +129,7 @@ def flightMode(normal):
 	elif(direction['Yaw'] == -1):
 	  drone.turn_left()
       
-      print "Gyro X: %d Gyro Y: %d" % (packet.gyroX, packet.gyroY)
+      print "Gyro X: %d Gyro Y: %d" % (packet.gyroX+xoffset, packet.gyroY)
       print "Yaw: %d Pitch: %d" % (direction['Yaw'], direction['Pitch'])
       
       frame = controller.frame()
@@ -145,12 +147,12 @@ def flightMode(normal):
                 handdirection.yaw * Leap.RAD_TO_DEG+normal.yaw)
       
 	if handdirection.yaw * Leap.RAD_TO_DEG > 10+normal.yaw:
-	  drone.move_left()
-	  print "Move left"
-	
-	elif handdirection.yaw * Leap.RAD_TO_DEG < -10+normal.yaw:
 	  drone.move_right()
 	  print "Move right"
+	
+	elif handdirection.yaw * Leap.RAD_TO_DEG < -10+normal.yaw:
+	  drone.move_left()
+	  print "Move left"
 	  
 	else:
 	  drone.hover()
