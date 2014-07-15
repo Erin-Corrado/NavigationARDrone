@@ -4,9 +4,6 @@ import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.LEDAnimation;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -18,6 +15,12 @@ public class NavMain {
 	    JFrame window = new JFrame("Navigation");
 	    window.setBounds(50, 100, 300, 300);
 	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    JTextField txt = new JTextField();
+	    Key k = new Key();
+	    txt.addKeyListener(k);
+	    window.add(txt);
+	    window.setSize(300,300);
+	    window.setVisible(true);
 	    
 
 	    try
@@ -70,6 +73,13 @@ public class NavMain {
 	        	    	cmd.goLeft(speed).doFor(1000).hover();
 	        	    	System.out.println("Move left");
 	        	    }
+	        	    
+	        	    if(k.lastChar == 'q')
+	        	    {
+	        	    	isRunning = false;
+	        	    	drone.landing();
+	        	    	System.out.println("Landing");
+	        	    }
 	        	}
 	        	
 	        	
@@ -78,6 +88,7 @@ public class NavMain {
 	        
 	    }
 	    }
+	    
 	    catch (Exception exc)
 		{
 			exc.printStackTrace();
