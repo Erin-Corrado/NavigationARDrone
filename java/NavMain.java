@@ -5,7 +5,6 @@ import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.LEDAnimation;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 public class NavMain {
 
@@ -15,12 +14,6 @@ public class NavMain {
 	    JFrame window = new JFrame("Navigation");
 	    window.setBounds(50, 100, 300, 300);
 	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    JTextField txt = new JTextField();
-	    Key k = new Key();
-	    txt.addKeyListener(k);
-	    window.add(txt);
-	    window.setSize(300,300);
-	    window.setVisible(true);
 	    
 
 	    try
@@ -28,7 +21,7 @@ public class NavMain {
 	        drone = new ARDrone();
 	        drone.start();
 	        boolean isRunning = true;
-	        int speed = 30;
+	        int speed = 20;
 	        Controller controller = new Controller();
 	        
 	        CommandManager cmd = drone.getCommandManager();
@@ -50,36 +43,44 @@ public class NavMain {
 	        	    System.out.println("roll: " + Math.toDegrees(normal.roll()) + " degrees, "
 	                        + "yaw: " + Math.toDegrees(direction.yaw()) + " degrees\n");
 	        	    
-	        	    if(Math.toDegrees(direction.yaw()) > 10)
+	        	    if (hand.grabStrength() >= 0.5)
 	        	    {
-	        	    	cmd.spinRight(speed).doFor(1000).hover();
+	        	    	cmd.landing();
+	        	    	System.out.println("Landing");
+	        	    	isRunning = false;
+	        	    }
+	        	    
+	        	    
+	        	    else if(Math.toDegrees(direction.yaw()) > 10)
+	        	    {
+	        	    	cmd.spinRight(speed).doFor(1000);
 	        	    	System.out.println("Turn right");
 	        	    }
 	        	    
 	        	    else if(Math.toDegrees(direction.yaw())< -10)
 	        	    {
-	        	    	cmd.spinLeft(speed).doFor(1000).hover();
+	        	    	cmd.spinLeft(speed).doFor(1000);
 	        	    	System.out.println("Turn left");
 	        	    }
 	        	    
 	        	    else if(Math.toDegrees(normal.roll()) > 10)
 	        	    {
-	        	    	cmd.goRight(speed).doFor(1000).hover();
+	        	    	cmd.goRight(speed).doFor(1000);
 	        	    	System.out.println("Move right");
 	        	    }
 	        	    
 	        	    else if(Math.toDegrees(normal.roll()) < -10)
 	        	    {
-	        	    	cmd.goLeft(speed).doFor(1000).hover();
+	        	    	cmd.goLeft(speed).doFor(1000);
 	        	    	System.out.println("Move left");
 	        	    }
 	        	    
-	        	    if(k.lastChar == 'q')
+	        	    else
 	        	    {
-	        	    	isRunning = false;
-	        	    	drone.landing();
-	        	    	System.out.println("Landing");
+	        	    	cmd.hover();
 	        	    }
+	        	    
+	        	    
 	        	}
 	        	
 	        	
@@ -87,6 +88,7 @@ public class NavMain {
 	        	
 	        
 	    }
+	        System.out.println("Shutting down");
 	    }
 	    
 	    catch (Exception exc)
