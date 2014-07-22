@@ -6,7 +6,6 @@ import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.LEDAnimation;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 class LeapInput extends Listener {
 	private Robutt controllee;
@@ -66,19 +65,12 @@ class LeapInput extends Listener {
 }
 
 public class NavMain {
-
 	public static void main(String[] args)
 	{
 		//IARDrone drone = null;
 		JFrame window = new JFrame("Navigation");
 		window.setBounds(50, 100, 300, 300);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JTextField txt = new JTextField();
-		Key k = new Key();
-		txt.addKeyListener(k);
-		window.add(txt);
-		window.setSize(300,300);
-		window.setVisible(true);
 
 		ConsoleRobutt cr = new ConsoleRobutt();
 		//Leap Stuff
@@ -93,14 +85,14 @@ public class NavMain {
 		}
 		controller.removeListener(listener);
 		/*
-		
+
 		try
 		{
 			//AR Drone stuff
 			//drone = new ARDrone();
 			//drone.start();
 			boolean isRunning = true;
-			//int speed = 30;
+			//int speed = 20;
 			//CommandManager cmd = drone.getCommandManager();
 			//cmd.setLedsAnimation(LEDAnimation.BLINK_ORANGE, 3, 10);
 			//cmd.takeOff();
