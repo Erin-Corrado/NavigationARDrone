@@ -47,12 +47,12 @@ class LeapInput extends Listener {
 
 		else if (Math.toDegrees(normal.roll()) > 10)
 		{
-			controllee.goRight();
+			controllee.goLeft();
 		}
 
 		else if (Math.toDegrees(normal.roll()) < -10)
 		{
-			controllee.goLeft();
+			controllee.goRight();
 		}
 	}
 }
