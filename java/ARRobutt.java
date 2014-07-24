@@ -5,6 +5,7 @@ import de.yadrone.base.command.LEDAnimation;
 
 public class ARRobutt implements Robutt {
 	private static final int SPEED = 20;
+	private static final int ACTION_TIME = 1000;
 	private CommandManager cmd;
 
 	public ARRobutt() {
@@ -17,19 +18,19 @@ public class ARRobutt implements Robutt {
 		cmd.waitFor(5000);
 	}
 	public void goLeft() {
-		cmd.goLeft(SPEED).doFor(1000).hover();
+		cmd.goLeft(SPEED).doFor(ACTION_TIME).hover();
 		System.out.println("Move left");
 	}
 	public void goRight() {
-		cmd.goRight(SPEED).doFor(1000).hover();
+		cmd.goRight(SPEED).doFor(ACTION_TIME).hover();
 		System.out.println("Move right");
 	}
 	public void turnLeft() {
-		cmd.spinLeft(SPEED).doFor(1000).hover();
+		cmd.spinLeft(SPEED).doFor(ACTION_TIME).hover();
 		System.out.println("Turn left");
 	}
 	public void turnRight() {
-		cmd.spinRight(SPEED).doFor(1000).hover();
+		cmd.spinRight(SPEED).doFor(ACTION_TIME).hover();
 		System.out.println("Turn right");
 	}
 	public void goUp() {
