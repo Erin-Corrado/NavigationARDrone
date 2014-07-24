@@ -68,11 +68,8 @@ public class NavMain {
 	public static void main(String[] args)
 	{
 		//IARDrone drone = null;
-		JFrame window = new JFrame("Navigation");
-		window.setBounds(50, 100, 300, 300);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		ConsoleRobutt cr = new ConsoleRobutt();
+		//LegoRobutt leggoMyEggo = new LegoRobutt();
 		//Leap Stuff
 		Controller controller = new Controller();
 		LeapInput listener = new LeapInput(cr);
