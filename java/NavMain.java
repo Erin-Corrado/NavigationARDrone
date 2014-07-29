@@ -2,7 +2,7 @@ import java.io.IOException;
 
 import com.leapmotion.leap.*;
 
-import java.util.Iterator;
+import de.yadrone.base.ARDrone;
 
 public class NavMain {
 	
@@ -12,13 +12,16 @@ public class NavMain {
 		{
 			Controller controller = new Controller();;
 			controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
+			controller.enableGesture(Gesture.Type.TYPE_SWIPE);
+			
 			LeapInput listener = new LeapInput();
 			controller.addListener(listener);
+			//VideoListener camera = new VideoListener((ARDrone) listener.drone);
 		
 			
 			while(listener.isRunning)
 			{
-			
+				
 			}
 			
 		

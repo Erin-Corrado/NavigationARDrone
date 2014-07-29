@@ -16,6 +16,7 @@ public class LeapInput extends Listener {
 				isRunning = true;
 				drone = new ARDrone();
 				drone.start();
+		
 				
 				cmd = drone.getCommandManager();
 				speed = 20;
@@ -79,9 +80,27 @@ public class LeapInput extends Listener {
         	    			System.out.println("Turn left");
         	    		}
         	    	}
+        	    	
+        	    	else if(gesture.type() == Gesture.Type.TYPE_SWIPE)
+        	    	{
+        	    		SwipeGesture swipe = new SwipeGesture(gesture);
+        	    		Vector swipeDirection = swipe.direction();
+        	    		
+        	    		if(swipeDirection.getX() > 0)
+        	    		{
+        	    			cmd.goRight(speed).doFor(1000).hover();
+        	    			System.out.println("Move right");
+        	    		}
+        	    		
+        	    		else if(swipeDirection.getX() < 0)
+        	    		{
+        	    			cmd.goLeft(speed).doFor(1000).hover();
+        	    			System.out.println("Move left");
+        	    		}
+        	    	}
         	    }
         	    
-        	    if (hand.grabStrength() >= 0.8 && hand.isLeft())
+        	    if (hand.grabStrength() >= 0.7 && hand.isLeft())
         	    {
         	    	System.out.println("Landing");
         	    	isRunning = false;
