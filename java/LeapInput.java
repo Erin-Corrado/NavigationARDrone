@@ -49,6 +49,39 @@ public class LeapInput extends Listener {
 				}
 				
 				Hand hand = frame.hands().get(0);
+				if (hand.isLeft())
+        	    {
+        	    	if(hand.grabStrength() >= 0.7)
+        	    	{
+        	    		System.out.println("Landing");
+        	    		isRunning = false;
+        	    	}
+        	    	
+        	    	else
+        	    	{
+        	    		System.out.println("Hover");
+        	    		cmd.hover();
+        	    	}
+        	    			
+        	    }
+				
+				if(hand.isRight())
+				{
+					Vector direction = hand.direction();
+				
+					if(Math.toDegrees(direction.yaw()) > 15)
+					{
+						System.out.println("Move right");
+						cmd.goRight(speed).doFor(1000).hover();
+					}
+				
+					else if (Math.toDegrees(direction.yaw()) < -15)
+					{
+						System.out.println("Move left");
+						cmd.goLeft(speed).doFor(1000).hover();
+					}
+					
+				}
 				
 				for(Gesture gesture : frame.gestures())
 				{
@@ -110,10 +143,6 @@ public class LeapInput extends Listener {
 				}
         	    
         	    
-        	    if (hand.isLeft() && hand.grabStrength() >= 0.7)
-        	    {
-        	    	System.out.println("Landing");
-        	    	isRunning = false;
-        	    }
+      
 			}
 }
