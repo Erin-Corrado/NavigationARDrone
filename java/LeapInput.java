@@ -29,14 +29,14 @@ public class LeapInput extends Listener {
 			}
 			
 			public void onDisconnect(Controller controller) 
-			 	{
-			        System.out.println("Disconnected");
-			    }
+			 {
+			    System.out.println("Disconnected");
+			 }
 
 			public void onExit(Controller controller) 
-				{
-			        System.out.println("Exited");
-			    }
+			{
+				System.out.println("Exited");
+			}
 
 			public void onFrame(Controller controller)
 			{
@@ -91,7 +91,7 @@ public class LeapInput extends Listener {
 					else if(Math.toDegrees(direction.pitch()) < -20)
 					{
 						System.out.println("Go backwards");
-						cmd.backward(speed).doFor(speed).hover();
+						cmd.backward(speed).doFor(1000).hover();
 					}
 					
 					
