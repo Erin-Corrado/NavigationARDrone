@@ -9,7 +9,7 @@ public class LeapInput extends Listener {
 	public boolean isRunning;
 	public IARDrone drone;
 	public CommandManager cmd;
-	public int speed;
+	private int speed;
 	
 			public LeapInput()
 			{
@@ -65,21 +65,36 @@ public class LeapInput extends Listener {
         	    			
         	    }
 				
-				if(hand.isRight())
+				else if(hand.isRight())
 				{
 					Vector direction = hand.direction();
+					
 				
-					if(Math.toDegrees(direction.yaw()) > 15)
+					if(Math.toDegrees(direction.yaw()) > 20)
 					{
 						System.out.println("Move right");
 						cmd.goRight(speed).doFor(1000).hover();
 					}
 				
-					else if (Math.toDegrees(direction.yaw()) < -15)
+					else if (Math.toDegrees(direction.yaw()) < -20)
 					{
 						System.out.println("Move left");
 						cmd.goLeft(speed).doFor(1000).hover();
 					}
+					
+					else if(Math.toDegrees(direction.pitch()) > 20)
+					{
+						System.out.println("Go fowards");
+						cmd.forward(speed).doFor(1000).hover();
+					}
+					
+					else if(Math.toDegrees(direction.pitch()) < -20)
+					{
+						System.out.println("Go backwards");
+						cmd.backward(speed).doFor(speed).hover();
+					}
+					
+					
 					
 				}
 				
@@ -121,20 +136,6 @@ public class LeapInput extends Listener {
 			        		break;
 			        		
 			        	case TYPE_SWIPE:
-			        		SwipeGesture swipe = new SwipeGesture(gesture);
-	        	    		Vector swipeDirection = swipe.direction();
-	        	    		
-	        	    		if(swipeDirection.getX() > 0)
-	        	    		{
-	        	    			cmd.goRight(speed).doFor(1000).hover();
-	        	    			System.out.println("Move right");
-	        	    		}
-	        	    		
-	        	    		else if(swipeDirection.getX() < 0)
-	        	    		{
-	        	    			cmd.goLeft(speed).doFor(1000).hover();
-	        	    			System.out.println("Move left");
-	        	    		}
 			        		break;
 			        		
 			        	default:

@@ -12,7 +12,6 @@ public class NavMain {
 		{
 			Controller controller = new Controller();;
 			controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
-			//controller.enableGesture(Gesture.Type.TYPE_SWIPE);
 			
 			LeapInput listener = new LeapInput();
 			controller.addListener(listener);
