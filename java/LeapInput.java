@@ -2,6 +2,7 @@ import com.leapmotion.leap.*;
 
 import de.yadrone.base.*;
 import de.yadrone.base.command.CommandManager;
+import de.yadrone.base.command.VideoCodec;
 
 
 public class LeapInput extends Listener {
@@ -20,6 +21,7 @@ public class LeapInput extends Listener {
 				
 				cmd = drone.getCommandManager();
 				speed = 20;
+				cmd.setVideoCodec(VideoCodec.H264_360P);
 				cmd.takeOff();
 			}
 	

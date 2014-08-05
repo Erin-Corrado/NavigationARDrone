@@ -15,7 +15,7 @@ public class NavMain {
 			
 			LeapInput listener = new LeapInput();
 			controller.addListener(listener);
-			//VideoListener camera = new VideoListener((ARDrone) listener.drone);
+			VideoListener camera = new VideoListener((ARDrone) listener.drone);
 		
 			
 			/*while(listener.isRunning)
