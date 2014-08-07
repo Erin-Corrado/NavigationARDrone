@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.*;
@@ -7,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import de.yadrone.base.*;
+import de.yadrone.base.command.VideoChannel;
 import de.yadrone.base.video.*;
 
 
@@ -45,6 +48,13 @@ public class VideoListener extends JFrame
                 System.exit(0);
             }
         });*/
+        
+        addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e)
+            {
+                drone.getCommandManager().setVideoChannel(VideoChannel.NEXT);
+            }
+        });
 	}
 	
 	public void paint(Graphics g)
