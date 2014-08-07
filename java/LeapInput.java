@@ -84,13 +84,13 @@ public class LeapInput extends Listener {
 						cmd.goLeft(speed).doFor(1000).hover();
 					}
 					
-					else if(Math.toDegrees(direction.pitch()) > 20)
+					else if(Math.toDegrees(direction.pitch()) < -25)
 					{
 						System.out.println("Go fowards");
 						cmd.forward(speed).doFor(1000).hover();
 					}
 					
-					else if(Math.toDegrees(direction.pitch()) < -20)
+					else if(Math.toDegrees(direction.pitch()) > 25)
 					{
 						System.out.println("Go backwards");
 						cmd.backward(speed).doFor(1000).hover();
