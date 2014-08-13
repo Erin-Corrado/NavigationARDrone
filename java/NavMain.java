@@ -1,3 +1,5 @@
+
+
 import java.io.IOException;
 
 import com.leapmotion.leap.*;
@@ -16,6 +18,7 @@ public class NavMain {
 			LeapInput listener = new LeapInput();
 			controller.addListener(listener);
 			VideoListener camera = new VideoListener((ARDrone) listener.drone);
+			KeyCatcher key = new KeyCatcher((ARDrone) listener.drone);
 		
 			
 			/*while(listener.isRunning)

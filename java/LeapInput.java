@@ -46,7 +46,7 @@ public class LeapInput extends Listener {
 				
 				if (frame.hands().isEmpty())
 				{
-					System.out.println("Hand not detected");
+					//System.out.println("Hand not detected");
 					return;
 				}
 				
